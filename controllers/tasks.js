@@ -8,6 +8,7 @@ const getAllTasks = async (req, res) => {
         msg: allTasks
     })
 }
+
 const createTask = async (req, res) => {
     try {
       const validationResult = await taskValidation.safeParse(req.body);
@@ -27,8 +28,6 @@ const createTask = async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   }
-
-
 
 const getSingleTask = async (req, res) => {
     const {id:task} = req.params;
