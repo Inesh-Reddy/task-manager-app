@@ -39,7 +39,7 @@ const getSingleTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
     const {id:task} = req.params;
-    const updatingTaks = await Task.findByIdAndUpdate({_id: task}, {completed:false});
+    const updatingTask = await Task.findByIdAndUpdate({_id:task}, req.body);
     const updatedTask = await Task.findById({_id:task});
     res.json({
         msg: updatedTask
@@ -49,7 +49,12 @@ const updateTask = async (req, res) => {
 const deleteTask = async (req, res) => {
     const {id:task} = req.params;
     const deteledTask = await Task.findOneAndDelete({_id:task});
-    res.json({
+    if(!deleteTask){
+      res.status(400).json({
+        msg: `No task with id: ${task}`
+      })
+    }
+    res.status(200).json({
         msg: "deleted Task"
     })
 }
